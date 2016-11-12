@@ -33,6 +33,7 @@ MEDIA_URL = '/media/'
 # Application definition
 
 INSTALLED_APPS = [
+    'errors',
     'report.apps.ReportConfig',
     'django_extensions',
     'rest_framework',

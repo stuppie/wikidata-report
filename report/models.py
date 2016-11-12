@@ -34,8 +34,9 @@ class Source(models.Model):
 
 
 class Property(models.Model):
-    name = models.CharField(max_length=64)
     id = models.CharField(max_length=10, primary_key=True)
+    name = models.CharField(max_length=64, null=True)
+    formatter_url = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return '{}: {}'.format(self.id, self.name)

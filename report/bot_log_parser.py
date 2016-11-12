@@ -6,12 +6,14 @@ import sys
 import pandas as pd
 from dateutil.parser import parse as dateutil_parse
 
+"""
 if "DJANGO_SETTINGS_MODULE" not in os.environ:
     os.environ["DJANGO_SETTINGS_MODULE"] = "wikidata.settings"
 
 import django
 
 django.setup()
+"""
 from report.models import Person, TaskRun, Task, Tag, Item, Log, Property, Source
 
 
@@ -76,7 +78,7 @@ def django_log_pd(task_run, row):
     if created:
         print("Property created: {}".format(prop))
     return Log(wdid=item, timestamp=row.timestamp, task_run=task_run, level=row.level, external_id=row.external_id,
-               external_id_prop=prop, msg=row.msg)
+               external_id_prop=prop, msg=row.msg, msg_type=row.msg_type)
 
 
 def parse_log(file_path):

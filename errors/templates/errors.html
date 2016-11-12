@@ -1,0 +1,29 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+
+</head>
+<body>
+{% for error in errors %}
+
+    <h2>Item: <a href="{% autoescape off %}{{ error.url }}{% endautoescape %}">{{ error.external_id }}</a>
+    {% if error.wdid_id %}{{ error.wdid_id }}{% endif %}</h2>
+    <h4>({{ error.external_id_prop.id }} {{ error.external_id_prop.name }})</h4>
+
+    {% if error.error_type == "default" %}
+        <p><b>{{ error.msg }} </b><br></p>
+
+    {% elif error.error_type == "PBB_Core" %}
+
+        <p><b>{{ error.msg.code }}: </b>{{ error.msg.name }}<br></p>
+        <p>{% autoescape off %}{{ error.msg.html }}{% endautoescape %}</p>
+    {% endif %}
+    <br><br>
+
+{% endfor %}
+
+</body>
+</html>

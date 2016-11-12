@@ -99,8 +99,7 @@ def upload(request):
         if form.is_valid():
             newdoc = Document(docfile=request.FILES['docfile'])
             newdoc.save()
-            task_run_pk = bot_log_parser.process_log(newdoc.docfile.path)
-            return HttpResponseRedirect('/taskrun/?id={}'.format(task_run_pk))
+            return HttpResponseRedirect('/taskrun/')
     else:
         form = DocumentForm()  # A empty, unbound form
 
@@ -121,7 +120,11 @@ def uploadPOST(request):
     """
     if request.method == 'POST':
         data = request.body.decode("utf-8")
-        task_run_pk = bot_log_parser.process_log(StringIO(data))
-        return HttpResponse(str(task_run_pk))
+        with open("media/tmp.tmp",'w') as f:
+            f.write(data)
+        newdoc = Document(docfile="tmp.tmp")
+        newdoc.save()
+        print("done saving")
+        return HttpResponse("done")
 
     return HttpResponse('it was GET request')
