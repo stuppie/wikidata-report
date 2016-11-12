@@ -81,7 +81,7 @@ def django_log_pd(task_run, row):
 
 def parse_log(file_path):
     df = pd.read_csv(file_path, sep=",", names=['level', 'timestamp', 'external_id', 'prop', 'wdid', 'msg', 'msg_type'],
-                     dtype={'external_id': str}, comment='#', quotechar='"', skipinitialspace=True)
+                     dtype={'external_id': str}, comment='#', quotechar='"', skipinitialspace=True, delimiter=';')
     df.fillna('', inplace=True)
     df = df.apply(lambda x: x.str.strip())
     df.timestamp = pd.to_datetime(df.timestamp, format='%m/%d/%Y %H:%M:%S')
